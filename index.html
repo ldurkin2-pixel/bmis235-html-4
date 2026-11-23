@@ -186,7 +186,7 @@
 
 <header>
   <h1>Linking Photos Correctly</h1>
-  <p>A step-by-step guide to putting images into your GitHub repository and linking them from your HTML so they actually show up on your live site.</p>
+  <p>Learn how to add photos to your GitHub repository and link them in your HTML so they show up on your website.</p>
 </header>
 
 <main>
@@ -197,12 +197,12 @@
       <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="12" aria-valuenow="0" id="bar"><span id="bar-fill"></span></div>
       <button class="reset" id="reset" type="button">Reset</button>
     </div>
-    <div class="done-msg" id="done-msg">All 12 steps complete. Your photos are linked correctly!</div>
+    <div class="done-msg" id="done-msg">All 12 steps done. Your photos are linked correctly!</div>
   </div>
 
   <section class="intro">
-    <h2>What you'll end up with</h2>
-    <p>By the end, your repository will have every photo stored in one <code>img</code> folder, your HTML will point to each photo with a short <strong>relative path</strong>, and each photo can be clicked to go to another page. Check off each step as you finish it. Your progress is saved in this browser.</p>
+    <h2>What you'll have at the end</h2>
+    <p>All your photos will be in one folder called <code>img</code>. Your HTML will point to each photo, and each photo will be a button that opens another page. Check off each step when you finish it. This page remembers your checks.</p>
     <pre class="tree"><code>my-repo/
 ├── index.html
 ├── golf.html
@@ -218,9 +218,9 @@
     <li class="step" data-step="1">
       <div class="num">1</div>
       <div class="step-body">
-        <div class="step-head"><label><input type="checkbox"><h3>Prepare your photos on your computer</h3></label></div>
-        <p>Save each image as a <code>.png</code> or <code>.jpg</code>. If the images will sit side by side (like a menu), make them all the <strong>same width and height</strong> before you upload, so they line up.</p>
-        <div class="tip">Keep the files small. A photo straight from a phone can be 5 MB or more and will load slowly. Around 100–300 KB is plenty for a web page.</div>
+        <div class="step-head"><label><input type="checkbox"><h3>Get your photos ready</h3></label></div>
+        <p>Save each photo as a <code>.png</code> or <code>.jpg</code> file. If the photos will sit next to each other, like in a menu, make them all the <strong>same size</strong> so they line up.</p>
+        <div class="tip">Keep files small. Big photos from a phone make your page slow.</div>
       </div>
     </li>
 
@@ -228,18 +228,18 @@
     <li class="step" data-step="2">
       <div class="num">2</div>
       <div class="step-body">
-        <div class="step-head"><label><input type="checkbox"><h3>Rename each file the web-safe way</h3></label></div>
-        <p>Rename the files <em>before</em> you upload them. Web servers are strict: <code>Home.png</code> and <code>home.png</code> are two <strong>different</strong> files.</p>
+        <div class="step-head"><label><input type="checkbox"><h3>Give each file a simple name</h3></label></div>
+        <p>Rename your files <em>before</em> you upload them. Capital letters matter online: <code>Home.png</code> and <code>home.png</code> are <strong>not</strong> the same file.</p>
         <div class="compare">
           <div class="good"><strong>Good names</strong>
             <ul><li><code>home.png</code></li><li><code>golf-course.jpg</code></li><li><code>tennis_2.png</code></li></ul>
           </div>
-          <div class="bad"><strong>Names that break links</strong>
-            <ul><li><code>Home.png.png</code> (two extensions)</li><li><code>My Photo.PNG</code> (spaces, capitals)</li><li><code>golf(1).jpg</code> (symbols)</li></ul>
+          <div class="bad"><strong>Bad names</strong>
+            <ul><li><code>Home.png.png</code> (ending is there twice)</li><li><code>My Photo.PNG</code> (space and capitals)</li><li><code>golf(1).jpg</code> (symbols)</li></ul>
           </div>
         </div>
-        <p>Rules: all lowercase, no spaces (use <code>-</code> or <code>_</code>), and exactly <strong>one</strong> extension.</p>
-        <div class="tip">Seeing <code>.png.png</code>? Your computer hides extensions, so you typed <code>.png</code> on top of one that was already there. On Windows turn on <em>View → File name extensions</em>; on a Mac use <em>Finder → Settings → Advanced → Show all filename extensions</em>.</div>
+        <p>The rules: all lowercase, no spaces (use <code>-</code> or <code>_</code> instead), and only <strong>one</strong> ending like <code>.png</code>.</p>
+        <div class="tip">See <code>.png.png</code>? Your computer was hiding the ending, so you typed it a second time. Turn on file endings so you can see them. On Windows: <em>View → File name extensions</em>. On a Mac: <em>Finder → Settings → Advanced → Show all filename extensions</em>.</div>
       </div>
     </li>
 
@@ -248,7 +248,7 @@
       <div class="num">3</div>
       <div class="step-body">
         <div class="step-head"><label><input type="checkbox"><h3>Open your repository on GitHub</h3></label></div>
-        <p>Go to <code>github.com/your-username/your-repo</code> and make sure you're on the <code>main</code> branch (the branch dropdown is at the top left of the file list). This is the branch GitHub Pages publishes.</p>
+        <p>Go to your repository on GitHub. At the top left of the file list, check that it says <code>main</code>. That's the version your website uses.</p>
       </div>
     </li>
 
@@ -256,14 +256,14 @@
     <li class="step" data-step="4">
       <div class="num">4</div>
       <div class="step-body">
-        <div class="step-head"><label><input type="checkbox"><h3>Open (or create) the <code>img</code> folder</h3></label></div>
-        <p>If an <code>img</code> folder already exists, click it to go inside. If it doesn't, GitHub can't make an empty folder, so you create it while adding a file:</p>
+        <div class="step-head"><label><input type="checkbox"><h3>Open or make the <code>img</code> folder</h3></label></div>
+        <p>If you already have an <code>img</code> folder, click it. If you don't, make one:</p>
         <ul>
           <li>Click <strong>Add file → Create new file</strong>.</li>
-          <li>In the name box type <code>img/</code>. The slash turns it into a folder.</li>
-          <li>Type <code>.gitkeep</code> as the file name, then click <strong>Commit changes</strong>.</li>
+          <li>Type <code>img/</code> in the name box. The slash makes it a folder.</li>
+          <li>Type <code>.gitkeep</code> as the file name and click <strong>Commit changes</strong>.</li>
         </ul>
-        <div class="tip">Keeping every photo in one <code>img</code> folder means every path in your HTML starts the same way: <code>img/…</code></div>
+        <div class="tip">GitHub won't save an empty folder, so the <code>.gitkeep</code> file is just there to hold it.</div>
       </div>
     </li>
 
@@ -271,9 +271,9 @@
     <li class="step" data-step="5">
       <div class="num">5</div>
       <div class="step-body">
-        <div class="step-head"><label><input type="checkbox"><h3>Upload the photos <em>inside</em> the <code>img</code> folder</h3></label></div>
-        <p>While you're inside <code>img</code> (the path at the top reads <code>your-repo / img</code>), click <strong>Add file → Upload files</strong>, drag your photos in, write a short message like <code>Add menu images</code>, and click <strong>Commit changes</strong>.</p>
-        <div class="tip">The most common mistake: uploading from the repo's main page. The photos then land next to <code>index.html</code> instead of in <code>img</code>, and <code>img/golf.png</code> won't find them.</div>
+        <div class="step-head"><label><input type="checkbox"><h3>Upload your photos <em>into</em> the <code>img</code> folder</h3></label></div>
+        <p>Make sure you're inside <code>img</code>. The top of the page should say <code>your-repo / img</code>. Then click <strong>Add file → Upload files</strong>, drag your photos in, and click <strong>Commit changes</strong>.</p>
+        <div class="tip">Common mistake: uploading from the main page of the repo. Then the photos end up outside the <code>img</code> folder and your links can't find them.</div>
       </div>
     </li>
 
@@ -281,9 +281,9 @@
     <li class="step" data-step="6">
       <div class="num">6</div>
       <div class="step-body">
-        <div class="step-head"><label><input type="checkbox"><h3>Check the exact file name GitHub shows</h3></label></div>
-        <p>Open the <code>img</code> folder and read each file name letter for letter. Whatever GitHub shows is what your HTML must say, including capital letters and the extension (<code>.png</code> vs <code>.jpg</code> vs <code>.jpeg</code>).</p>
-        <p>If a name is wrong, open the file, click the pencil (or <strong>…→ Rename</strong>), fix the name, and commit.</p>
+        <div class="step-head"><label><input type="checkbox"><h3>Check each file name</h3></label></div>
+        <p>Open the <code>img</code> folder and read each name carefully. Your HTML must use the <strong>exact same name</strong>, with the same capital letters and the same ending (<code>.png</code>, <code>.jpg</code> or <code>.jpeg</code>).</p>
+        <p>If a name is wrong, open the file, click the pencil, fix the name, and commit.</p>
       </div>
     </li>
 
@@ -291,22 +291,22 @@
     <li class="step" data-step="7">
       <div class="num">7</div>
       <div class="step-body">
-        <div class="step-head"><label><input type="checkbox"><h3>Add the <code>&lt;img&gt;</code> tag with a relative path</h3></label></div>
-        <p>Open your HTML file on GitHub and click the pencil to edit. Add the image where you want it:</p>
+        <div class="step-head"><label><input type="checkbox"><h3>Add the photo to your page</h3></label></div>
+        <p>Open your HTML file on GitHub and click the pencil to edit it. Type this where you want the photo:</p>
 <pre><code>&lt;img src="img/golf.png" alt="Golf"&gt;</code></pre>
         <ul>
-          <li><code>src</code> is the path <strong>from this HTML file</strong> to the photo: folder name, slash, file name.</li>
-          <li><code>alt</code> describes the image for screen readers and shows if the image fails to load.</li>
+          <li><code>src</code> tells the page where the photo is: the folder, a slash, then the file name.</li>
+          <li><code>alt</code> is a short description. It shows up if the photo doesn't load, and it helps people who use screen readers.</li>
         </ul>
         <div class="compare">
-          <div class="good"><strong>Use a relative path</strong>
+          <div class="good"><strong>Do this</strong>
             <ul><li><code>img/golf.png</code></li></ul>
           </div>
-          <div class="bad"><strong>Avoid</strong>
+          <div class="bad"><strong>Don't do this</strong>
             <ul><li><code>C:\Users\me\Desktop\golf.png</code></li><li><code>/Users/me/Pictures/golf.png</code></li></ul>
           </div>
         </div>
-        <div class="tip">A path to your own computer works when you open the file locally, but nobody else has that file, so it breaks online.</div>
+        <div class="tip">A path to a file on your own computer only works for you. Nobody else can see your computer, so the photo will be broken online.</div>
       </div>
     </li>
 
@@ -314,17 +314,17 @@
     <li class="step" data-step="8">
       <div class="num">8</div>
       <div class="step-body">
-        <div class="step-head"><label><input type="checkbox"><h3>Wrap the image in a link</h3></label></div>
-        <p>To make the photo clickable, put the <code>&lt;img&gt;</code> <em>inside</em> an <code>&lt;a&gt;</code> tag. The <code>href</code> is where the click goes:</p>
+        <div class="step-head"><label><input type="checkbox"><h3>Make the photo a link</h3></label></div>
+        <p>To make the photo clickable, put it <em>inside</em> an <code>&lt;a&gt;</code> tag. <code>href</code> is the page the click opens:</p>
 <pre><code>&lt;a href="golf.html"&gt;
     &lt;img src="img/golf.png" alt="Golf"&gt;
 &lt;/a&gt;</code></pre>
-        <p>For a menu, repeat the pattern once per page and put them all inside a <code>&lt;nav&gt;</code>:</p>
+        <p>For a menu, do this once for each page and put them all inside <code>&lt;nav&gt;</code>:</p>
 <pre><code>&lt;nav&gt;
     &lt;a href="index.html"&gt;&lt;img src="img/home.png" alt="Home"&gt;&lt;/a&gt;
     &lt;a href="golf.html"&gt;&lt;img src="img/golf.png" alt="Golf"&gt;&lt;/a&gt;
 &lt;/nav&gt;</code></pre>
-        <div class="tip">Linking to another website? Use the full address: <code>&lt;a href="https://example.com"&gt;</code>. Without <code>https://</code> the browser looks for a file in your repo instead.</div>
+        <div class="tip">Linking to a different website? Use the full address, starting with <code>https://</code>, like <code>&lt;a href="https://example.com"&gt;</code>.</div>
       </div>
     </li>
 
@@ -332,13 +332,13 @@
     <li class="step" data-step="9">
       <div class="num">9</div>
       <div class="step-body">
-        <div class="step-head"><label><input type="checkbox"><h3>Compare every path to the real file names</h3></label></div>
-        <p>Before you commit, go through each <code>src</code> and <code>href</code> and check it against the file list from step 6:</p>
+        <div class="step-head"><label><input type="checkbox"><h3>Double-check your code</h3></label></div>
+        <p>Before you save, look at each <code>src</code> and <code>href</code> and compare it to the file names from step 6:</p>
         <ul>
-          <li>Same capital and lowercase letters</li>
-          <li>Same extension (<code>.png</code> isn't <code>.PNG</code> or <code>.jpg</code>)</li>
-          <li>Folder name included (<code>img/</code>)</li>
-          <li>Quotes closed and <code>&lt;/a&gt;</code> present</li>
+          <li>Capital letters match</li>
+          <li>Ending matches (<code>.png</code> is not <code>.PNG</code> or <code>.jpg</code>)</li>
+          <li>Folder name is there (<code>img/</code>)</li>
+          <li>Every quote mark is closed, and <code>&lt;/a&gt;</code> is there</li>
         </ul>
       </div>
     </li>
@@ -347,9 +347,9 @@
     <li class="step" data-step="10">
       <div class="num">10</div>
       <div class="step-body">
-        <div class="step-head"><label><input type="checkbox"><h3>Commit your HTML changes</h3></label></div>
-        <p>Scroll to <strong>Commit changes</strong>, write a message that says what you did (e.g. <code>Link menu images on home page</code>), make sure <strong>Commit directly to the main branch</strong> is selected, and commit.</p>
-        <p>If you used the same menu on several pages, repeat steps 7–10 for each page so they all match.</p>
+        <div class="step-head"><label><input type="checkbox"><h3>Save your changes (commit)</h3></label></div>
+        <p>Click <strong>Commit changes</strong>. Write a short note about what you did, like <code>Add menu photos</code>. Make sure <strong>Commit directly to the main branch</strong> is picked, then click commit.</p>
+        <p>Using the same menu on other pages? Do steps 7 to 10 on each page.</p>
       </div>
     </li>
 
@@ -357,14 +357,14 @@
     <li class="step" data-step="11">
       <div class="num">11</div>
       <div class="step-body">
-        <div class="step-head"><label><input type="checkbox"><h3>Test on your live GitHub Pages site</h3></label></div>
-        <p>Open <code>https://your-username.github.io/your-repo/</code>. GitHub needs about a minute to publish; you can watch it under the repo's <strong>Actions</strong> tab.</p>
+        <div class="step-head"><label><input type="checkbox"><h3>Test your live website</h3></label></div>
+        <p>Open your website. It's usually <code>https://your-username.github.io/your-repo/</code>. Wait about a minute after saving for it to update.</p>
         <ul>
-          <li>Every photo shows (no broken-image icon).</li>
-          <li>Every photo-link opens the right page.</li>
-          <li>Still seeing the old version? Hard refresh: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> (Windows) or <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> (Mac).</li>
+          <li>Does every photo show up?</li>
+          <li>Does every photo open the right page when you click it?</li>
+          <li>Still seeing the old page? Refresh it. On a computer, press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> (Windows) or <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> (Mac).</li>
         </ul>
-        <div class="tip">Quick test: right-click a broken image and choose <em>Open image in new tab</em>. The address bar shows the exact path the browser tried, so you can see what's misspelled.</div>
+        <div class="tip">Photo broken? Right-click it and choose <em>Open image in new tab</em>. The address bar shows where the page looked, so you can spot the typo.</div>
       </div>
     </li>
 
@@ -372,24 +372,24 @@
     <li class="step" data-step="12">
       <div class="num">12</div>
       <div class="step-body">
-        <div class="step-head"><label><input type="checkbox"><h3>Clean up extra copies</h3></label></div>
-        <p>Delete any photos that ended up in the wrong place or with a bad name (for example a <code>golf.png.png</code> sitting next to <code>index.html</code> when the real one is <code>img/golf.png</code>). Open the file, click <strong>… → Delete file</strong>, and commit.</p>
-        <p>Then reload your live site once more to confirm nothing you still use was removed.</p>
+        <div class="step-head"><label><input type="checkbox"><h3>Delete extra copies</h3></label></div>
+        <p>Delete any photos in the wrong place or with a bad name, like a <code>golf.png.png</code> outside the <code>img</code> folder. Open the file, click <strong>… → Delete file</strong>, and commit.</p>
+        <p>Then check your website one more time to make sure everything still works.</p>
       </div>
     </li>
 
   </ol>
 
   <section class="callout">
-    <h2>Broken image? Find the cause</h2>
+    <h2>Photo not working? Find the problem</h2>
     <table>
-      <thead><tr><th>What you see</th><th>Likely cause</th><th>Fix</th></tr></thead>
+      <thead><tr><th>What you see</th><th>Why</th><th>How to fix it</th></tr></thead>
       <tbody>
-        <tr><td>Broken-image icon or just the alt text</td><td>The path doesn't match the file name or folder</td><td>Redo steps 6 and 9</td></tr>
-        <tr><td>Works on your computer, broken online</td><td>A capital letter differs, or the path points to your computer</td><td>Make names lowercase, use <code>img/…</code></td></tr>
-        <tr><td>Image shows but clicking does nothing</td><td>The <code>&lt;img&gt;</code> isn't inside <code>&lt;a&gt;</code>, or <code>href</code> is missing</td><td>Redo step 8</td></tr>
-        <tr><td>Click goes to a 404 page</td><td>The <code>href</code> file name is misspelled</td><td>Match it to the HTML file name exactly</td></tr>
-        <tr><td>Change doesn't appear at all</td><td>Not committed to <code>main</code>, or the page is cached</td><td>Check the branch, wait a minute, hard refresh</td></tr>
+        <tr><td>A broken photo icon, or just words</td><td>The name or folder in your code is wrong</td><td>Do steps 6 and 9 again</td></tr>
+        <tr><td>Works on your computer but not online</td><td>A capital letter is different, or the path points to your computer</td><td>Use lowercase names and <code>img/…</code></td></tr>
+        <tr><td>Photo shows, but clicking does nothing</td><td>The photo isn't inside <code>&lt;a&gt;</code>, or <code>href</code> is missing</td><td>Do step 8 again</td></tr>
+        <tr><td>Clicking opens a "404" page</td><td>The page name in <code>href</code> is spelled wrong</td><td>Make it match the page's file name</td></tr>
+        <tr><td>Nothing changed at all</td><td>Not saved to <code>main</code>, or the old page is still loaded</td><td>Check you're on <code>main</code>, wait a minute, refresh</td></tr>
       </tbody>
     </table>
   </section>
