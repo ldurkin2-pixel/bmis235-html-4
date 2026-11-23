@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<!--
+  Author: Lisette Durkin
+  Course: BMIS 235
+  A step-by-step learning page: how to add photos to a GitHub repository
+  and link them correctly from your HTML pages.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linking Photos Correctly</title>
+<style>
+  :root {
+    --bg: #f4f8fb;
+    --card: #ffffff;
+    --text: #1d2a38;
+    --muted: #5b6b7c;
+    --line: #d7e1ea;
+    --accent: #2b5d8c;
+    --accent-soft: #e3eef8;
+    --good: #1f7a4d;
+    --good-soft: #e3f4ea;
+    --bad: #b3372b;
+    --bad-soft: #fbe7e4;
+    --code-bg: #eef2f6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #10161d;
+      --card: #18212b;
+      --text: #e4ebf2;
+      --muted: #9aabbc;
+      --line: #2b3846;
+      --accent: #7fb2e5;
+      --accent-soft: #1d2f42;
+      --good: #6fd19c;
+      --good-soft: #173325;
+      --bad: #f08a7e;
+      --bad-soft: #3a1e1b;
+      --code-bg: #0e141a;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
+  }
+
+  header {
+    background: var(--accent);
+    color: #fff;
+    padding: 40px 16px 32px;
+    text-align: center;
+  }
+  @media (prefers-color-scheme: dark) {
+    header { background: #1d3a57; }
+  }
+  header h1 { margin: 0 0 8px; font-size: clamp(1.7rem, 5vw, 2.4rem); }
+  header p { margin: 0 auto; max-width: 640px; opacity: 0.92; }
+
+  main { max-width: 820px; margin: 0 auto; padding: 0 16px 60px; }
+
+  /* sticky progress bar */
+  .progress {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: var(--bg);
+    padding: 14px 0 12px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 24px;
+  }
+  .progress-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .progress-label { font-weight: 600; min-width: 150px; }
+  .bar { flex: 1; min-width: 140px; height: 12px; background: var(--line); border-radius: 99px; overflow: hidden; }
+  .bar span { display: block; height: 100%; width: 0; background: var(--good); transition: width 0.3s ease; }
+  .reset {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 4px 12px;
+    font: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+  .reset:hover { color: var(--text); border-color: var(--muted); }
+  .done-msg { display: none; margin-top: 10px; padding: 10px 14px; border-radius: 8px; background: var(--good-soft); color: var(--good); font-weight: 600; }
+  .done-msg.show { display: block; }
+
+  .intro, .step, .callout {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 18px;
+  }
+
+  h2 { font-size: 1.25rem; margin: 0 0 8px; }
+
+  ol.steps { list-style: none; padding: 0; margin: 0; counter-reset: step; }
+
+  .step { display: grid; grid-template-columns: auto 1fr; gap: 14px; transition: border-color 0.2s, opacity 0.2s; }
+  .step.checked { border-color: var(--good); }
+  .step.checked .step-body { opacity: 0.7; }
+
+  .num {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.05rem;
+  }
+  .step.checked .num { background: var(--good); color: #fff; }
+
+  .step-head { display: flex; align-items: flex-start; gap: 10px; }
+  .step-head label { cursor: pointer; display: flex; gap: 10px; align-items: flex-start; }
+  .step-head input[type="checkbox"] {
+    width: 22px; height: 22px; margin: 3px 0 0;
+    accent-color: var(--good);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .step-head h3 { margin: 0; font-size: 1.1rem; }
+  .step.checked h3 { text-decoration: line-through; text-decoration-color: var(--good); }
+
+  .step-body { min-width: 0; }
+  .step-body p { margin: 8px 0; }
+  .step-body code { overflow-wrap: anywhere; }
+  pre code { overflow-wrap: normal; }
+  .step-body ul { margin: 8px 0; padding-left: 20px; }
+
+  code { background: var(--code-bg); padding: 1px 6px; border-radius: 4px; font-size: 0.92em; }
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 12px 14px;
+    overflow-x: auto;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 10px 0;
+  }
+  pre code { background: none; padding: 0; }
+
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
+  .compare div { border-radius: 8px; padding: 10px 12px; font-size: 0.95rem; }
+  .compare .good { background: var(--good-soft); border: 1px solid var(--good); }
+  .compare .bad { background: var(--bad-soft); border: 1px solid var(--bad); }
+  .compare strong { display: block; margin-bottom: 4px; }
+  .compare .good strong { color: var(--good); }
+  .compare .bad strong { color: var(--bad); }
+  .compare ul { margin: 0; padding-left: 18px; }
+
+  .tip { border-left: 4px solid var(--accent); background: var(--accent-soft); padding: 8px 12px; border-radius: 0 8px 8px 0; margin: 10px 0; font-size: 0.95rem; }
+
+  .tree { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.9rem; }
+
+  .callout h2 { color: var(--bad); }
+  .callout table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+  .callout th, .callout td { text-align: left; padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+
+  footer { text-align: center; color: var(--muted); font-size: 0.9rem; padding: 20px 16px 40px; }
+  footer a { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .step { grid-template-columns: 1fr; }
+    .num { width: 34px; height: 34px; font-size: 0.95rem; }
+    .compare { grid-template-columns: 1fr; }
+    .callout table, .callout tbody, .callout tr, .callout td, .callout th { display: block; }
+    .callout thead { display: none; }
+    .callout tr { border-bottom: 1px solid var(--line); padding: 6px 0; }
+    .callout td { border: none; padding: 2px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Linking Photos Correctly</h1>
+  <p>A step-by-step guide to putting images into your GitHub repository and linking them from your HTML so they actually show up on your live site.</p>
+</header>
+
+<main>
+
+  <div class="progress" aria-live="polite">
+    <div class="progress-row">
+      <span class="progress-label" id="progress-label">0 of 12 steps done</span>
+      <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="12" aria-valuenow="0" id="bar"><span id="bar-fill"></span></div>
+      <button class="reset" id="reset" type="button">Reset</button>
+    </div>
+    <div class="done-msg" id="done-msg">All 12 steps complete. Your photos are linked correctly!</div>
+  </div>
+
+  <section class="intro">
+    <h2>What you'll end up with</h2>
+    <p>By the end, your repository will have every photo stored in one <code>img</code> folder, your HTML will point to each photo with a short <strong>relative path</strong>, and each photo can be clicked to go to another page. Check off each step as you finish it. Your progress is saved in this browser.</p>
+    <pre class="tree"><code>my-repo/
+├── index.html
+├── golf.html
+├── styles.css
+└── img/
+    ├── home.png
+    └── golf.png</code></pre>
+  </section>
+
+  <ol class="steps" id="steps">
+
+    <!-- 1 -->
+    <li class="step" data-step="1">
+      <div class="num">1</div>
+      <div class="step-body">
+        <div class="step-head"><label><input type="checkbox"><h3>Prepare your photos on your computer</h3></label></div>
+        <p>Save each image as a <code>.png</code> or <code>.jpg</code>. If the images will sit side by side (like a menu), make them all the <strong>same width and height</strong> before you upload, so they line up.</p>
+        <div class="tip">Keep the files small. A photo straight from a phone can be 5 MB or more and will load slowly. Around 100–300 KB is plenty for a web page.</div>
+      </div>
+    </li>
+
+    <!-- 2 -->
+    <li class="step" data-step="2">
+      <div class="num">2</div>
+      <div class="step-body">
+        <div class="step-head"><label><input type="checkbox"><h3>Rename each file the web-safe way</h3></label></div>
+        <p>Rename the files <em>before</em> you upload them. Web servers are strict: <code>Home.png</code> and <code>home.png</code> are two <strong>different</strong> files.</p>
+        <div class="compare">
+          <div class="good"><strong>Good names</strong>
+            <ul><li><code>home.png</code></li><li><code>golf-course.jpg</code></li><li><code>tennis_2.png</code></li></ul>
+          </div>
+          <div class="bad"><strong>Names that break links</strong>
+            <ul><li><code>Home.png.png</code> (two extensions)</li><li><code>My Photo.PNG</code> (spaces, capitals)</li><li><code>golf(1).jpg</code> (symbols)</li></ul>
+          </div>
+        </div>
+        <p>Rules: all lowercase, no spaces (use <code>-</code> or <code>_</code>), and exactly <strong>one</strong> extension.</p>
+        <div class="tip">Seeing <code>.png.png</code>? Your computer hides extensions, so you typed <code>.png</code> on top of one that was already there. On Windows turn on <em>View → File name extensions</em>; on a Mac use <em>Finder → Settings → Advanced → Show all filename extensions</em>.</div>
+      </div>
+    </li>
+
+    <!-- 3 -->
+    <li class="step" data-step="3">
+      <div class="num">3</div>
+      <div class="step-body">
+        <div class="step-head"><label><input type="checkbox"><h3>Open your repository on GitHub</h3></label></div>
+        <p>Go to <code>github.com/your-username/your-repo</code> and make sure you're on the <code>main</code> branch (the branch dropdown is at the top left of the file list). This is the branch GitHub Pages publishes.</p>
+      </div>
+    </li>
+
+    <!-- 4 -->
+    <li class="step" data-step="4">
+      <div class="num">4</div>
+      <div class="step-body">
+        <div class="step-head"><label><input type="checkbox"><h3>Open (or create) the <code>img</code> folder</h3></label></div>
+        <p>If an <code>img</code> folder already exists, click it to go inside. If it doesn't, GitHub can't make an empty folder, so you create it while adding a file:</p>
+        <ul>
+          <li>Click <strong>Add file → Create new file</strong>.</li>
+          <li>In the name box type <code>img/</code>. The slash turns it into a folder.</li>
+          <li>Type <code>.gitkeep</code> as the file name, then click <strong>Commit changes</strong>.</li>
+        </ul>
+        <div class="tip">Keeping every photo in one <code>img</code> folder means every path in your HTML starts the same way: <code>img/…</code></div>
+      </div>
+    </li>
+
+    <!-- 5 -->
+    <li class="step" data-step="5">
+      <div class="num">5</div>
+      <div class="step-body">
+        <div class="step-head"><label><input type="checkbox"><h3>Upload the photos <em>inside</em> the <code>img</code> folder</h3></label></div>
+        <p>While you're inside <code>img</code> (the path at the top reads <code>your-repo / img</code>), click <strong>Add file → Upload files</strong>, drag your photos in, write a short message like <code>Add menu images</code>, and click <strong>Commit changes</strong>.</p>
+        <div class="tip">The most common mistake: uploading from the repo's main page. The photos then land next to <code>index.html</code> instead of in <code>img</code>, and <code>img/golf.png</code> won't find them.</div>
+      </div>
+    </li>
+
+    <!-- 6 -->
+    <li class="step" data-step="6">
+      <div class="num">6</div>
+      <div class="step-body">
+        <div class="step-head"><label><input type="checkbox"><h3>Check the exact file name GitHub shows</h3></label></div>
+        <p>Open the <code>img</code> folder and read each file name letter for letter. Whatever GitHub shows is what your HTML must say, including capital letters and the extension (<code>.png</code> vs <code>.jpg</code> vs <code>.jpeg</code>).</p>
+        <p>If a name is wrong, open the file, click the pencil (or <strong>…→ Rename</strong>), fix the name, and commit.</p>
+      </div>
+    </li>
+
+    <!-- 7 -->
+    <li class="step" data-step="7">
+      <div class="num">7</div>
+      <div class="step-body">
+        <div class="step-head"><label><input type="checkbox"><h3>Add the <code>&lt;img&gt;</code> tag with a relative path</h3></label></div>
+        <p>Open your HTML file on GitHub and click the pencil to edit. Add the image where you want it:</p>
+<pre><code>&lt;img src="img/golf.png" alt="Golf"&gt;</code></pre>
+        <ul>
+          <li><code>src</code> is the path <strong>from this HTML file</strong> to the photo: folder name, slash, file name.</li>
+          <li><code>alt</code> describes the image for screen readers and shows if the image fails to load.</li>
+        </ul>
+        <div class="compare">
+          <div class="good"><strong>Use a relative path</strong>
+            <ul><li><code>img/golf.png</code></li></ul>
+          </div>
+          <div class="bad"><strong>Avoid</strong>
+            <ul><li><code>C:\Users\me\Desktop\golf.png</code></li><li><code>/Users/me/Pictures/golf.png</code></li></ul>
+          </div>
+        </div>
+        <div class="tip">A path to your own computer works when you open the file locally, but nobody else has that file, so it breaks online.</div>
+      </div>
+    </li>
+
+    <!-- 8 -->
+    <li class="step" data-step="8">
+      <div class="num">8</div>
+      <div class="step-body">
+        <div class="step-head"><label><input type="checkbox"><h3>Wrap the image in a link</h3></label></div>
+        <p>To make the photo clickable, put the <code>&lt;img&gt;</code> <em>inside</em> an <code>&lt;a&gt;</code> tag. The <code>href</code> is where the click goes:</p>
+<pre><code>&lt;a href="golf.html"&gt;
+    &lt;img src="img/golf.png" alt="Golf"&gt;
+&lt;/a&gt;</code></pre>
+        <p>For a menu, repeat the pattern once per page and put them all inside a <code>&lt;nav&gt;</code>:</p>
+<pre><code>&lt;nav&gt;
+    &lt;a href="index.html"&gt;&lt;img src="img/home.png" alt="Home"&gt;&lt;/a&gt;
+    &lt;a href="golf.html"&gt;&lt;img src="img/golf.png" alt="Golf"&gt;&lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+        <div class="tip">Linking to another website? Use the full address: <code>&lt;a href="https://example.com"&gt;</code>. Without <code>https://</code> the browser looks for a file in your repo instead.</div>
+      </div>
+    </li>
+
+    <!-- 9 -->
+    <li class="step" data-step="9">
+      <div class="num">9</div>
+      <div class="step-body">
+        <div class="step-head"><label><input type="checkbox"><h3>Compare every path to the real file names</h3></label></div>
+        <p>Before you commit, go through each <code>src</code> and <code>href</code> and check it against the file list from step 6:</p>
+        <ul>
+          <li>Same capital and lowercase letters</li>
+          <li>Same extension (<code>.png</code> isn't <code>.PNG</code> or <code>.jpg</code>)</li>
+          <li>Folder name included (<code>img/</code>)</li>
+          <li>Quotes closed and <code>&lt;/a&gt;</code> present</li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- 10 -->
+    <li class="step" data-step="10">
+      <div class="num">10</div>
+      <div class="step-body">
+        <div class="step-head"><label><input type="checkbox"><h3>Commit your HTML changes</h3></label></div>
+        <p>Scroll to <strong>Commit changes</strong>, write a message that says what you did (e.g. <code>Link menu images on home page</code>), make sure <strong>Commit directly to the main branch</strong> is selected, and commit.</p>
+        <p>If you used the same menu on several pages, repeat steps 7–10 for each page so they all match.</p>
+      </div>
+    </li>
+
+    <!-- 11 -->
+    <li class="step" data-step="11">
+      <div class="num">11</div>
+      <div class="step-body">
+        <div class="step-head"><label><input type="checkbox"><h3>Test on your live GitHub Pages site</h3></label></div>
+        <p>Open <code>https://your-username.github.io/your-repo/</code>. GitHub needs about a minute to publish; you can watch it under the repo's <strong>Actions</strong> tab.</p>
+        <ul>
+          <li>Every photo shows (no broken-image icon).</li>
+          <li>Every photo-link opens the right page.</li>
+          <li>Still seeing the old version? Hard refresh: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> (Windows) or <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> (Mac).</li>
+        </ul>
+        <div class="tip">Quick test: right-click a broken image and choose <em>Open image in new tab</em>. The address bar shows the exact path the browser tried, so you can see what's misspelled.</div>
+      </div>
+    </li>
+
+    <!-- 12 -->
+    <li class="step" data-step="12">
+      <div class="num">12</div>
+      <div class="step-body">
+        <div class="step-head"><label><input type="checkbox"><h3>Clean up extra copies</h3></label></div>
+        <p>Delete any photos that ended up in the wrong place or with a bad name (for example a <code>golf.png.png</code> sitting next to <code>index.html</code> when the real one is <code>img/golf.png</code>). Open the file, click <strong>… → Delete file</strong>, and commit.</p>
+        <p>Then reload your live site once more to confirm nothing you still use was removed.</p>
+      </div>
+    </li>
+
+  </ol>
+
+  <section class="callout">
+    <h2>Broken image? Find the cause</h2>
+    <table>
+      <thead><tr><th>What you see</th><th>Likely cause</th><th>Fix</th></tr></thead>
+      <tbody>
+        <tr><td>Broken-image icon or just the alt text</td><td>The path doesn't match the file name or folder</td><td>Redo steps 6 and 9</td></tr>
+        <tr><td>Works on your computer, broken online</td><td>A capital letter differs, or the path points to your computer</td><td>Make names lowercase, use <code>img/…</code></td></tr>
+        <tr><td>Image shows but clicking does nothing</td><td>The <code>&lt;img&gt;</code> isn't inside <code>&lt;a&gt;</code>, or <code>href</code> is missing</td><td>Redo step 8</td></tr>
+        <tr><td>Click goes to a 404 page</td><td>The <code>href</code> file name is misspelled</td><td>Match it to the HTML file name exactly</td></tr>
+        <tr><td>Change doesn't appear at all</td><td>Not committed to <code>main</code>, or the page is cached</td><td>Check the branch, wait a minute, hard refresh</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<footer>
+  Built by Lisette Durkin &middot; BMIS 235 &middot; <a href="index.html">Back to home</a>
+</footer>
+
+<script>
+(function () {
+  var KEY = 'photo-links-tutorial-progress';
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
+  var total = steps.length;
+  var label = document.getElementById('progress-label');
+  var bar = document.getElementById('bar');
+  var fill = document.getElementById('bar-fill');
+  var doneMsg = document.getElementById('done-msg');
+
+  function load() {
+    try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; }
+  }
+  function save(state) {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  var state = load();
+
+  function render() {
+    var count = 0;
+    steps.forEach(function (li) {
+      var on = !!state[li.dataset.step];
+      li.querySelector('input').checked = on;
+      li.classList.toggle('checked', on);
+      if (on) count++;
+    });
+    label.textContent = count + ' of ' + total + ' steps done';
+    fill.style.width = (count / total * 100) + '%';
+    bar.setAttribute('aria-valuenow', count);
+    doneMsg.classList.toggle('show', count === total);
+  }
+
+  steps.forEach(function (li) {
+    li.querySelector('input').addEventListener('change', function (e) {
+      state[li.dataset.step] = e.target.checked;
+      save(state);
+      render();
+    });
+  });
+
+  document.getElementById('reset').addEventListener('click', function () {
+    state = {};
+    save(state);
+    render();
+  });
+
+  render();
+})();
+</script>
+
+</body>
+</html>
